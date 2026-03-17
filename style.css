@@ -1,0 +1,201 @@
+:root {
+    /* Outer Hardware Colors */
+    --casing-red: #dc0a2d;
+    --casing-dark: #8b0000;
+    
+    /* Inner Screen Colors - Light, Modern, Professional */
+    --screen-bg: #eaeff2;
+    --screen-text: #2c3e50;
+    --screen-dim: #7f8c8d;
+    --screen-border: #bdc3c7;
+    
+    /* Message Colors */
+    --msg-red: #c0392b;
+    --msg-green: #27ae60;
+    --msg-yellow: #d35400; 
+}
+
+body {
+    background-color: #222;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s;
+}
+
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.full-width { width: 100%; margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.blink { animation: blinker 1s linear infinite; }
+@keyframes blinker { 50% { opacity: 0; } }
+
+/* FIXED DIMENSION HARDWARE CASING */
+.hardware-casing { 
+    background: var(--casing-red); 
+    padding: 20px; 
+    border-radius: 15px; 
+    width: 95vw; 
+    max-width: 1200px; 
+    height: 90vh; 
+    min-height: 600px;
+    margin: 0 auto; 
+    box-shadow: inset -5px -5px 15px rgba(0,0,0,0.3), 5px 10px 20px rgba(0,0,0,0.5);
+    border: 4px solid var(--casing-dark);
+    display: flex;
+    flex-direction: column;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+/* Hardware Lights */
+.hardware-header { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; height: 60px; }
+.lens { width: 50px; height: 50px; background: radial-gradient(circle at 30% 30%, #4db8ff, #005999); border-radius: 50%; border: 4px solid #fff; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+.light { width: 15px; height: 15px; border-radius: 50%; border: 2px solid #555; margin-top: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.5); }
+.red-light { background: #ff4d4d; }
+.yellow-light { background: #ffd740; }
+.green-light { background: #4dff4d; }
+
+/* THE INTERNAL SCREEN - BRIGHT TABLET STYLE */
+.screen-bezel {
+    background: #111; padding: 15px; border-radius: 5px; box-shadow: inset 0 0 20px #000;
+    flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; border: 2px solid #333; position: relative;
+}
+
+.screen-content {
+    background: var(--screen-bg); color: var(--screen-text); font-family: 'Courier New', Courier, monospace; 
+    flex-grow: 1; padding: 20px; box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1); 
+    overflow-y: auto; display: flex; flex-direction: column; border-radius: 3px; position: relative;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* Modal Overlay for Warnings */
+.modal-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85); z-index: 200;
+    display: flex; justify-content: center; align-items: center;
+    backdrop-filter: blur(4px);
+}
+.modal-content {
+    background: var(--screen-bg); color: var(--screen-text);
+    padding: 30px; border: 4px solid var(--msg-red); border-radius: 8px;
+    text-align: center; max-width: 600px; font-family: 'Courier New', Courier, monospace;
+    font-weight: bold; font-size: 1.2rem; box-shadow: 0 0 20px rgba(192, 57, 43, 0.5);
+}
+
+/* Typography & Layout */
+.main-title, #end-title { text-align: center; letter-spacing: 1px; margin-top: 0; font-size: 2rem; font-weight: bold; }
+.results-text { font-size: 1.5rem; margin: 5px 0; font-weight: bold; }
+.divider { border: 0; border-bottom: 2px solid var(--screen-border); margin: 20px 0; transition: border-color 0.3s; }
+
+/* Flat, Modern Buttons */
+.sys-btn {
+    background: #fff; color: var(--screen-text); border: 2px solid var(--screen-border);
+    padding: 10px 15px; font-family: 'Courier New', Courier, monospace; font-weight: bold;
+    font-size: 1rem; cursor: pointer; text-transform: uppercase; transition: 0.2s; border-radius: 4px;
+}
+.sys-btn:hover { background: #e0e0e0; border-color: var(--screen-dim); }
+.sys-btn.active { background: var(--screen-text); color: #fff; border-color: var(--screen-text); }
+.sys-btn.red-btn { border-color: var(--msg-red); color: var(--msg-red); background: #fff; }
+.sys-btn.red-btn:hover { background: var(--msg-red); color: #fff; }
+.highlight-btn { background: #ecf0f1; border-color: var(--screen-dim); }
+
+.grid-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+
+#options-panel { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+#timer-settings { justify-content: center; align-items: center; gap: 10px; font-size: 1.2rem; margin-bottom: 15px; font-weight: bold;}
+#timer-mins { 
+    width: 60px; font-family: 'Courier New', Courier, monospace; font-size: 1.2rem; 
+    font-weight: bold; text-align: center; background: #fff; color: var(--screen-text);
+    border: 2px solid var(--screen-border); outline: none; border-radius: 4px;
+}
+
+/* Sticky Game HUD & In-Game Toggles */
+.game-header-sticky {
+    position: sticky; top: -20px; background: var(--screen-bg); z-index: 100;
+    padding: 20px 0 10px 0; margin-top: -20px; border-bottom: 2px solid var(--screen-border); margin-bottom: 15px;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.hud {
+    display: flex; justify-content: space-between; padding: 10px; font-size: 1.2rem; margin-bottom: 10px;
+    background: rgba(0,0,0,0.05); border: 2px solid var(--screen-border); border-radius: 4px; font-weight: bold;
+    transition: border-color 0.3s;
+}
+.controls { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+
+#guess-input {
+    flex-grow: 1; background: #fff; color: var(--screen-text); border: 2px solid var(--screen-border);
+    padding: 10px; font-family: 'Courier New', Courier, monospace; font-size: 1.2rem;
+    font-weight: bold; outline: none; text-transform: uppercase; border-radius: 4px; transition: 0.3s;
+}
+#guess-input:focus { border-color: var(--screen-text); }
+#guess-input::placeholder { color: var(--screen-dim); }
+
+.in-game-toggles { display: flex; gap: 10px; margin-bottom: 10px; }
+.in-game-toggles .sys-btn { font-size: 0.9rem; padding: 6px 10px; flex: 1; }
+
+#sys-message { height: 24px; font-size: 1.2rem; text-align: left; margin-bottom: 0; font-weight: bold; }
+.msg-red { color: var(--msg-red); }
+.msg-green { color: var(--msg-green); }
+.msg-yellow { color: var(--msg-yellow); }
+
+/* Grid and Sections */
+.region-header { font-size: 1.2rem; border-bottom: 2px solid var(--screen-border); margin: 20px 0 10px 0; padding-bottom: 5px; font-weight: bold; color: var(--screen-text); transition: border-color 0.3s; }
+.region-header:first-child { margin-top: 0; }
+
+.pokedex-subgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 10px; }
+
+.ghost-slot { 
+    height: 60px; position: relative; display: flex; justify-content: center; align-items: center;
+    background: #fff; border: 1px solid var(--screen-border); border-radius: 4px; transition: 0.3s;
+}
+
+.dex-number { color: var(--screen-dim); font-size: 1rem; font-weight: bold; }
+
+.sprite-img { 
+    z-index: 2; position: absolute; top: 50%; left: 50%; 
+    transform: translate(-50%, -50%); width: 68px; height: 68px; image-rendering: pixelated; 
+}
+.sprite-img.shadow-mode { filter: brightness(0) opacity(0.3); }
+
+.ball-item-img { 
+    z-index: 1; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    width: 40px; height: 40px; image-rendering: pixelated; animation: popIn 0.3s ease-out forwards; 
+}
+
+.shiny-badge {
+    position: absolute; top: -5px; right: -5px; font-size: 1.2rem; z-index: 10;
+    animation: popIn 0.3s ease-out forwards; filter: drop-shadow(0 0 2px rgba(0,0,0,0.5)); pointer-events: none;
+}
+
+@keyframes popIn { 0% { transform: translate(-50%, -50%) scale(0); } 80% { transform: translate(-50%, -50%) scale(1.2); } 100% { transform: translate(-50%, -50%) scale(1); } }
+@keyframes popOut { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(0); opacity: 0; } }
+
+/* =========================================
+   DARK MODE OVERRIDES
+   ========================================= */
+body.dark-mode {
+    --casing-red: #61091a;
+    --casing-dark: #2e0000;
+    --screen-bg: #12141c;
+    --screen-text: #64ffda; /* Retro terminal cyan */
+    --screen-dim: #4a5d6e;
+    --screen-border: #2c3e50;
+}
+
+body.dark-mode .sys-btn { background: #1b202c; color: var(--screen-text); }
+body.dark-mode .sys-btn:hover { background: #2c3e50; border-color: var(--screen-text); }
+body.dark-mode .sys-btn.active { background: var(--screen-text); color: #12141c; }
+body.dark-mode .highlight-btn { background: #232a3b; }
+body.dark-mode .sys-btn.red-btn { background: #1b202c; }
+
+body.dark-mode #guess-input { background: #1b202c; color: var(--screen-text); }
+body.dark-mode #timer-mins { background: #1b202c; color: var(--screen-text); }
+body.dark-mode .ghost-slot { background: #1b202c; }
+body.dark-mode .hud { background: rgba(100, 255, 218, 0.05); }
+body.dark-mode .modal-content { background: #12141c; color: var(--screen-text); }

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Pokédex Terminal</title>
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="hardware-casing">
+        <div class="hardware-header">
+            <div class="lens"></div>
+            <div class="light red-light"></div>
+            <div class="light yellow-light"></div>
+            <div class="light green-light"></div>
+        </div>
+
+        <div class="screen-bezel">
+            <div id="shadow-modal" class="modal-overlay hidden">
+                <div class="modal-content">
+                    <h2 class="msg-red blink">WARNING: SENSOR INTERFERENCE</h2>
+                    <p>Activating Shadow Mode will obscure all visual data in the database until the subject is successfully logged.</p>
+                    <p>Once engaged during an active uplink, this protocol CANNOT be aborted.</p>
+                    <hr class="divider">
+                    <div class="grid-buttons">
+                        <button id="confirm-shadow-btn" class="sys-btn red-btn">ENGAGE SHADOWS</button>
+                        <button id="cancel-shadow-btn" class="sys-btn">CANCEL</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="setup-screen" class="screen-content">
+                <h1 class="main-title">POKÉDEX</h1>
+                
+                <div id="loading-overlay" class="text-center mt-20">
+                    <h2 class="blink">ESTABLISHING UPLINK...</h2>
+                </div>
+                
+                <div id="mode-sections" class="hidden">
+                    <div id="options-panel">
+                        <button id="opt-theme" class="sys-btn">THEME: LIGHT</button>
+                        <button id="opt-timer" class="sys-btn">TIMER: OFF</button>
+                        <button id="opt-shadows" class="sys-btn">SHADOWS: OFF</button>
+                        <button id="opt-spelling" class="sys-btn">FUZZY LOGIC: OFF</button>
+                    </div>
+                    
+                    <div id="timer-settings" class="hidden">
+                        MINUTES: <input type="number" id="timer-mins" value="15" min="1" max="180">
+                    </div>
+                    
+                    <hr class="divider">
+                    
+                    <div class="grid-buttons">
+                        <button class="sys-btn" data-type="gen" data-start="1" data-end="151">GEN 1 (Kanto)</button>
+                        <button class="sys-btn" data-type="gen" data-start="152" data-end="251">GEN 2 (Johto)</button>
+                        <button class="sys-btn" data-type="gen" data-start="252" data-end="386">GEN 3 (Hoenn)</button>
+                        <button class="sys-btn" data-type="gen" data-start="387" data-end="493">GEN 4 (Sinnoh)</button>
+                        <button class="sys-btn" data-type="gen" data-start="494" data-end="649">GEN 5 (Unova)</button>
+                        <button class="sys-btn" data-type="gen" data-start="650" data-end="721">GEN 6 (Kalos)</button>
+                        <button class="sys-btn" data-type="gen" data-start="722" data-end="809">GEN 7 (Alola)</button>
+                        <button class="sys-btn" data-type="gen" data-start="810" data-end="905">GEN 8 (Galar)</button>
+                        <button class="sys-btn" data-type="gen" data-start="906" data-end="1025">GEN 9 (Paldea)</button>
+                        
+                        <button class="sys-btn highlight-btn" data-type="gen" data-start="1" data-end="1025">NATIONAL DEX</button>
+                        <button id="btn-legendary" class="sys-btn highlight-btn">SPECIAL / LEGENDS</button>
+                        <button id="toggle-types-btn" class="sys-btn highlight-btn">BY TYPE</button>
+                    </div>
+
+                    <div id="type-section" class="hidden mt-20">
+                        <h2 class="region-header text-center">SELECT ELEMENTAL TYPE</h2>
+                        <div id="type-buttons" class="grid-buttons"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="game-screen" class="screen-content hidden">
+                <div class="game-header-sticky">
+                    <div class="hud">
+                        <div id="timer-box">TIMER: <span id="timer">00:00</span></div>
+                        <div class="score-box">LOGGED: <span id="score">0</span> / <span id="total-count">0</span></div>
+                    </div>
+                    
+                    <div class="controls">
+                        <input type="text" id="guess-input" placeholder="> INPUT SUBJECT NAME..." autocomplete="off">
+                        <button id="spell-check-btn" class="sys-btn hidden">QUERY</button>
+                        <button id="give-up-btn" class="sys-btn red-btn">ABORT</button>
+                    </div>
+
+                    <div class="in-game-toggles controls">
+                        <button id="in-game-theme" class="sys-btn highlight-btn">THEME: LIGHT</button>
+                        <button id="in-game-shadows" class="sys-btn highlight-btn">SHADOWS: OFF</button>
+                        <button id="in-game-spelling" class="sys-btn highlight-btn">FUZZY LOGIC: OFF</button>
+                    </div>
+                    
+                    <div id="sys-message"></div>
+                </div>
+                
+                <div id="pokedex-grid"></div>
+            </div>
+
+            <div id="end-screen" class="screen-content hidden">
+                <h1 id="end-title">DATA COMPILED</h1>
+                <hr class="divider">
+                <h2 class="results-text text-center">ENTRIES LOGGED: <span id="final-score"></span> / <span id="final-total"></span></h2>
+                <h2 class="results-text text-center" id="final-time-container">ELAPSED TIME: <span id="final-time"></span></h2>
+                <h2 class="results-text text-center msg-yellow" id="final-shadows"></h2>
+                <button id="restart-btn" class="sys-btn full-width mt-20">REBOOT SYSTEM</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
